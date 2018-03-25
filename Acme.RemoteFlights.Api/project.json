@@ -1,0 +1,12 @@
+﻿{
+    "scripts": {
+        "precompile": [
+            "npm install",
+            "dotnet bundle"
+        ],
+        "prepublish": [
+        ],
+        "postpublish": [
+        ]
+    }
+}
