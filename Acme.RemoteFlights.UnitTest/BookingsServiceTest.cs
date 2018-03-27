@@ -210,7 +210,7 @@ namespace Acme.RemoteFlights.UnitTest
                 var booking = new FlightBookingRequest
                 {
                     FlightId = Guid.NewGuid(),
-                    FlightDate = DateTime.Now, ///.AddMinutes(5),
+                    FlightDate = DateTime.Now.Date,
                     PassengerName = "Max"
                 };
                 this.MockRepository(booking.FlightId, booking.FlightDate);
@@ -243,7 +243,7 @@ namespace Acme.RemoteFlights.UnitTest
             public async Task Test_MakeBooking_With_EmptyGuid()
             {
                 //Arrange
-                var booking = this.prepareInput(Guid.Empty, DateTime.Now, "Max");
+                var booking = this.prepareInput(Guid.Empty, DateTime.Now.Date, "Max");
                 this.MockRepository(booking.FlightId, booking.FlightDate);
 
                 //Act
@@ -259,7 +259,7 @@ namespace Acme.RemoteFlights.UnitTest
             public async Task Test_MakeBooking_With_EmptyPassenger()
             {
                 //Arrange
-                var booking = this.prepareInput(Guid.NewGuid(), DateTime.Now, "");
+                var booking = this.prepareInput(Guid.NewGuid(), DateTime.Now.Date, "");
                 this.MockRepository(booking.FlightId, booking.FlightDate);
 
                 //Act

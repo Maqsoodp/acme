@@ -43,7 +43,7 @@ namespace Acme.RemoteFlights.Application.Services
             {
                 throw new ArgumentException($"Invalid start date {request.startDate}", nameof(request.startDate));
             }
-            if (request.endDate < DateTime.Now || request.startDate == DateTime.MinValue)
+            if (request.endDate < DateTime.Now.Date || request.startDate == DateTime.MinValue)
             {
                 throw new ArgumentException($"Invalid end date {request.endDate}", nameof(request.endDate));
             }

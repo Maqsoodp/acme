@@ -37,10 +37,10 @@ namespace Acme.RemoteFlights.Domain.Repositories
         {
             return await SqlRetryPolicy.BasicPolicy.ExecuteAsync(async() =>
             {
-                return await (from fb in this._dbContext.FlightBookings.Where(x => x.FlightDate >= DateTime.Now)
+                return await (from fb in this._dbContext.FlightBookings.Where(x => x.FlightDate >= DateTime.Now.Date)
                               join f in this._dbContext.Flights on fb.FlightId equals f.Id
                               where fb.PassengerName.Contains(passengerName, StringComparison.InvariantCultureIgnoreCase) ||
-                                      fb.FlightDate == (givenDate ?? DateTime.Now) ||
+                                      fb.FlightDate == (givenDate ?? DateTime.Now.Date) ||
                                       f.ArrivalCity.Contains(giveArrivalCity, StringComparison.InvariantCultureIgnoreCase) ||
                                       f.DepartureCity.Contains(giveDepartureCity, StringComparison.InvariantCultureIgnoreCase) ||
                                       f.FlightNumber.Contains(giveFlightNumber, StringComparison.InvariantCultureIgnoreCase)
@@ -73,7 +73,7 @@ namespace Acme.RemoteFlights.Domain.Repositories
                 if (currentBooking != null)
                 {
                     var flight = await this._dbContext.Flights.Where(f => f.Id == currentBooking.FlightId).SingleAsync(cancellationToken);
-                    return (currentBooking.Count < flight.Capacity);
+                    return ((flight.Capacity - ((currentBooking?.Count ?? 0) + numberOfPax)) >= 0);
                 }
                 return true;
             });

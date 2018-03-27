@@ -63,20 +63,18 @@ class Search extends Component {
 
         const bookingsData = (bookings && bookings.length > 0) ? bookings.map(f => {
 
-            var flightDate = new Date(f.flightDate);
+            var flightDate = new Date(f.flightDate).toJSON().split('T')[0];
             var flight = f.flight;
-            var sTime = new Date(flight.startTime);
-            var eTime = new Date(flight.endTime);
-            return (<tr>
+            return (<tr key={f.id}>
                 <th scope="row">{f.passengerName}</th>
 
                 <td>{flight.departureCity}</td>
                 <td>{flight.arrivalCity}</td>
                 <th scope="row">{flight.flightNumber}</th>
 
-                <td>{flightDate.toISOString()}</td>
-                <td>{sTime.getHours() + ':' + sTime.getMinutes()}</td>
-                <td>{eTime.getHours() + ':' + eTime.getMinutes()}</td>
+                <td>{flightDate.toString()}</td>
+                <td>{flight.startTime}</td>
+                <td>{flight.endTime}</td>
             </tr>)
         })
             : (<tr><td colSpan="7">No Results found</td></tr>);

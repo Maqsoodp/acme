@@ -58,18 +58,17 @@ class Bookings extends Component {
             });
 
             fetch(myRequest)
-                .then(response => {
-                    if (response && response.status === 200) {
-                        return response.json();
+                .then(response => response.json())
+                .then(bookings => {
+                    if (bookings.message) {
+                        throw new Error(bookings.message);
                     } else {
-                        throw new Error('Something went wrong on api server!');
+                        this.setState({ bookings, result: true });
+                        alert('Successfully added');
                     }
-                }).then(bookings => {
-                    this.setState({ bookings, result: true });
-                    alert('Successfully added');
-                }).catch(error => {
+                }).catch((error, msg) => {
                     this.setState({ result: false });
-                    alert(`Error - ${error.message}`);
+                    alert(error);
                 });
         }
         return false;

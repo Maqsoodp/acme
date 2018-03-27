@@ -94,18 +94,16 @@ class Check extends Component {
             )
         }) : null;
 
-        const maxLimit = new Date(new Date().setDate(new Date().getDate() + 10)).toJSON().split('T')[0];
+        const maxLimit = new Date(new Date().setDate(new Date().getDate() + 30)).toJSON().split('T')[0];
         const minDate = new Date().toJSON().split('T')[0];
 
         return (
             <div className="container">
                 <div className="row">
-                    <h3>Search is limited to a maximunm of 10 Days </h3>
+                    <h3>Search is limited to a maximunm of 30 Days </h3>
                 </div>
                 <div className="row">
-                    
                     <form>
-
                         <div className="input-group">
                             <div className="input-group-prepend">
                                 <span className="input-group-text" id="">Select Start and End date</span>
@@ -120,7 +118,7 @@ class Check extends Component {
                         <button type="submit" onClick={this.onSubmit} className="btn btn-primary">Check Availability</button>
                     </form>
                 </div>
-                <div className="row">
+                <div className="row" key="result">
                     {datesData}
                 </div>
             </div>

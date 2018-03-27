@@ -20,7 +20,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace WebApplication1
+namespace Acme.RemoteFlights.Api
 {
     public class Startup
     {
@@ -35,9 +35,11 @@ namespace WebApplication1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<FlightsDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("FlightsContext")));
-            //services.AddScoped<>
+
+            //services.AddDbContext<FlightsDbContext>(options =>
+            //options.UseSqlServer(Configuration.GetConnectionString("FlightsContext")));
+
+            services.AddDbContext<FlightsDbContext>(options => options.UseInMemoryDatabase("FlightsDb"));
 
             services.AddSingleton(CreateMapper());
 
@@ -65,6 +67,10 @@ namespace WebApplication1
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler();
+            }
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -73,27 +79,7 @@ namespace WebApplication1
             });
 
             app.UseMvc();
-            app.UseExceptionHandler(
-                options =>
-                {
-                    options.Run(
-                    async context =>
-                    {
-                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        context.Response.ContentType = "text/html";
-                        var ex = context.Features.Get<IExceptionHandlerFeature>();
-                        if (ex != null)
-                        {
-                            var err = $"{ex.Error.Message}";
-                            await context.Response.WriteAsync(err).ConfigureAwait(false);
-                        }
-                    });
-                }
-            );
             app.UseStaticFiles();
-
-            
-
             dbInit.Load();
         }
 

@@ -8,7 +8,7 @@ using Acme.RemoteFlights.Application.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApplication1.Controllers
+namespace Acme.RemoteFlights.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/flight")]
