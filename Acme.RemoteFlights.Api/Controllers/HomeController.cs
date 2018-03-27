@@ -10,16 +10,11 @@ namespace WebApplication1.Controllers
     [Route("/")]
     public class HomeController : Controller
     {
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
-
-        [Route("/error")]
-        public IActionResult Error()
-        {
-            // Handle error here
-            return View();
-        }
+        
     }
 }

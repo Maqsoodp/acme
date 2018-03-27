@@ -30,15 +30,13 @@ class Flights extends Component {
         const { flights } = this.state;
 
         const flightsData = flights ? flights.map(f => {
-            var sTime = new Date(f.startTime);
-            var eTime = new Date(f.endTime);
             return (<tr key={f.id}>
                 <th scope="row">{f.flightNumber}</th>
                 <td>{f.departureCity}</td>
                 <td>{f.arrivalCity}</td>
                 <td>{f.capacity}</td>
-                <td>{sTime.getHours() + ':' + sTime.getMinutes()}</td>
-                <td>{eTime.getHours() + ':' + eTime.getMinutes()}</td>
+                <td>{f.startTime}</td>
+                <td>{f.endTime}</td>
             </tr>)
         })
             : null;

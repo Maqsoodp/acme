@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{BC69DE62-E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acme.RemoteFlights.UnitTest", "Acme.RemoteFlights.UnitTest\Acme.RemoteFlights.UnitTest.csproj", "{7EE1DD20-E9F1-43D5-8D44-99FFE0D2C244}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acme.RemoteFlights.Shared", "Acme.RemoteFlights.Shared\Acme.RemoteFlights.Shared.csproj", "{D5E9272A-5441-4FAA-9B3C-BAC3E91E6B07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{7EE1DD20-E9F1-43D5-8D44-99FFE0D2C244}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EE1DD20-E9F1-43D5-8D44-99FFE0D2C244}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EE1DD20-E9F1-43D5-8D44-99FFE0D2C244}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5E9272A-5441-4FAA-9B3C-BAC3E91E6B07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5E9272A-5441-4FAA-9B3C-BAC3E91E6B07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5E9272A-5441-4FAA-9B3C-BAC3E91E6B07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5E9272A-5441-4FAA-9B3C-BAC3E91E6B07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

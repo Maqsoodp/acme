@@ -5,8 +5,8 @@
     [Capacity] INT NOT NULL, 
     [DepartureCity] VARCHAR(50) NOT NULL, 
     [ArrivalCity] VARCHAR(50) NOT NULL, 
-    [StartTime] DATETIME2 NOT NULL, 
-    [EndTime] DATETIME2 NOT NULL
+    [StartTime] time NOT NULL, 
+    [EndTime] time NOT NULL
 );
 GO
 
@@ -39,7 +39,7 @@ CREATE TABLE [dbo].[FlightBooking]
 (
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
 	[FlightId] UNIQUEIDENTIFIER,
-	[FlightDate] DATETIME2 NOT NULL, 
+	[FlightDate] DATE NOT NULL, 
 	[PassengerName]  VARCHAR(100) NOT NULL
 );
 
@@ -70,8 +70,3 @@ CREATE NONCLUSTERED INDEX IX_FlightBooking_PassengerName
     ON [dbo].[FlightBooking] (PassengerName);   
 GO  
 
-CREATE TABLE [dbo].[Passenger]
-(
-	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
-	[Name] UNIQUEIDENTIFIER
-);

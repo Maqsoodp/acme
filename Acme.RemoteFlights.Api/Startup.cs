@@ -18,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace WebApplication1
 {
@@ -47,7 +48,11 @@ namespace WebApplication1
             services.AddTransient<DbInit>();
             services.AddScoped<IFlightsRepository, FlightsRepository>();
             services.AddScoped<IFlightBookingsRepository, FlightBookingsRepository>();
-            services.AddScoped<IPassengerRepository, PassengerRepository>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("flight", new Info { Title = "Acme remote flight Rest API", Version = "v1" });
+            });
 
 
         }
@@ -56,15 +61,17 @@ namespace WebApplication1
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, DbInit dbInit, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole();
-            // env.EnvironmentName = EnvironmentName.Production;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            //else
-            //{
-            //    app.UseExceptionHandler("/error");
-            //}
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/flight/swagger.json", "Acme remote flight Rest API");
+            });
+
             app.UseMvc();
             app.UseExceptionHandler(
                 options =>
@@ -84,6 +91,9 @@ namespace WebApplication1
                 }
             );
             app.UseStaticFiles();
+
+            
+
             dbInit.Load();
         }
 

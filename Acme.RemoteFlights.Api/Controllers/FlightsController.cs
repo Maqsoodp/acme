@@ -24,33 +24,55 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(CancellationToken cancellationToken)
         {
-            var result = await this._flightService.GetAll();
+            var result = await this._flightService.GetAll(cancellationToken);
             return new ObjectResult(result);
         }
 
         [Route("search")]
         [HttpPost]
-        public async Task<IActionResult> Search([FromBody]SearchViewModel filter)
+        public async Task<IActionResult> Search([FromBody]SearchViewModel filter, CancellationToken cancellationToken)
         {
-            var result = await this._bookingsService.Search(filter);
-            return new ObjectResult(result);
+            try
+            {
+                var result = await this._bookingsService.Search(filter, cancellationToken);
+                return new ObjectResult(result);
+            }
+            catch (ArgumentException ae)
+            {
+                return BadRequest(ae);
+            }
         }
 
         [Route("availability")]
         [HttpPost]
         public async Task<IActionResult> CheckAvailability([FromBody]CheckAvailabilityRequest request, CancellationToken cancellationToken)
         {
-            var result = await this._bookingsService.CheckAvailability(request);
-            return new ObjectResult(result);
+            try
+            {
+                var result = await this._bookingsService.CheckAvailability(request, cancellationToken);
+                return new ObjectResult(result);
+            }
+            catch (ArgumentException ae)
+            {
+                return BadRequest(ae);
+            }
         }
 
         [Route("bookings")]
         [HttpPost]
-        public async Task<bool> MakeBooking([FromBody]FlightBookingViewModel bookingRequest)
+        public async Task<IActionResult> MakeBooking([FromBody]FlightBookingRequest bookingRequest, CancellationToken cancellationToken)
         {
-            return await this._bookingsService.MakeBooking(bookingRequest);
+            try
+            {
+                var result = await this._bookingsService.MakeBooking(bookingRequest, cancellationToken);
+                return new ObjectResult(result);
+            }
+            catch (ArgumentException ae)
+            {
+                return BadRequest(ae);
+            }
         }
 
     }

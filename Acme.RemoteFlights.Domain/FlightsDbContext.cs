@@ -16,14 +16,12 @@ namespace Acme.RemoteFlights.Domain
 
         public DbSet<Flight> Flights { get; set; }
         public DbSet<FlightBooking> FlightBookings { get; set; }
-        public DbSet<Passenger> Passengers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new FlightConfiguration());
             builder.ApplyConfiguration(new FlightBookingsConfiguration());
-            builder.ApplyConfiguration(new PassengerConfiguration());
         }
 
         internal class FlightConfiguration : IEntityTypeConfiguration<Flight>
@@ -42,17 +40,6 @@ namespace Acme.RemoteFlights.Domain
             {
                 builder.ToTable("FlightBooking");
                 builder.HasKey(c => c.Id);
-                // builder.HasOne(c => c).WithOne(..HasMaxLength(200);
-            }
-        }
-
-        internal class PassengerConfiguration : IEntityTypeConfiguration<Passenger>
-        {
-            public void Configure(EntityTypeBuilder<Passenger> builder)
-            {
-                builder.ToTable("Passenger");
-                builder.HasKey(c => c.Id);
-                builder.Property(c => c.Name).HasMaxLength(200);
             }
         }
     }

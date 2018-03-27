@@ -11,14 +11,27 @@ class Search extends Component {
         }
     }
 
-    onSubmit() {
+    onSubmit(e) {
+        e.preventDefault();
+
+
+        var passengerName = this.refs['passengerName'].value;
+        var date = this.refs['date'].value;
+        var departureCity = this.refs['departureCity'].value;
+        var arrivalCity = this.refs['arrivalCity'].value;
+        var flightNumber = this.refs['flightNumber'].value;
+
+        if (passengerName.length == 0 && date.length == 0 && departureCity.length == 0 && arrivalCity.length == 0 && flightNumber.length == 0) {
+            alert('Please fill atleast one parameter to search');
+            return false;
+        }
 
         var formData = {
-            'passengerName': this.refs['passengerName'].value,
-            'date': this.refs['date'].value,
-            'departureCity': this.refs['departureCity'].value,
-            'arrivalCity': this.refs['arrivalCity'].value,
-            'flightNumber': this.refs['flightNumber'].value,
+            'passengerName': passengerName,
+            'date': date,
+            'departureCity': departureCity,
+            'arrivalCity': arrivalCity,
+            'flightNumber': flightNumber,
         };
 
         const myRequest = new Request("/api/flight/search", {
@@ -68,7 +81,7 @@ class Search extends Component {
         })
             : (<tr><td colSpan="7">No Results found</td></tr>);
 
-
+        const minDate = new Date().toJSON().split('T')[0];
         return (
             <div className="container">
                 <div className="row">
@@ -79,7 +92,7 @@ class Search extends Component {
                         </div>
                         <div className="form-group">
                             <label htmlFor="date" className="control-label">Flight date</label>
-                            <input type="date" className="form-control" id="date" placeholder="Flight Date" ref="date" />
+                            <input type="date" min={minDate} className="form-control" id="date" placeholder="Flight Date" ref="date" />
                         </div>
                         <div className="form-group">
                             <label htmlFor="departureCity" className="control-label">departureCity</label>
@@ -93,7 +106,7 @@ class Search extends Component {
                             <label htmlFor="flightNumber" className="control-label">flight Number</label>
                             <input type="text" className="form-control" id="flightNumber" placeholder="flight Number" ref="flightNumber" />
                         </div>
-                        <button type="button" onClick={this.onSubmit} className="btn btn-primary">Search</button>
+                        <button onClick={this.onSubmit} className="btn btn-primary">Search</button>
                     </form>
                 </div>
                 <div className="row">

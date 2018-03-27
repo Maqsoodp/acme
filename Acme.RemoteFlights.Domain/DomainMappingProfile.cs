@@ -13,11 +13,9 @@ namespace Acme.RemoteFlights.Domain
         {
             this.CreateMap<Flight, FlightDTO>();
             this.CreateMap<FlightBooking, FlightBookingsDTO>();
-            this.CreateMap<Passenger, PassengerDTO>();
 
             this.CreateMap<FlightDTO, Flight>();
             this.CreateMap<FlightBookingsDTO, FlightBooking>();
-            this.CreateMap<PassengerDTO, Passenger>();
         }
     }
 }

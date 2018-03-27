@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Acme.RemoteFlights.Application.ViewModel;
 using Acme.RemoteFlights.Domain.Contracts;
@@ -19,9 +20,9 @@ namespace Acme.RemoteFlights.Application.Services
             this._mapper = mapper;
         }
 
-        public async Task<List<FlightViewModel>> GetAll()
+        public async Task<List<FlightViewModel>> GetAll(CancellationToken cancellationToken)
         {
-            var result = await this._flightsRepository.GetAll();
+            var result = await this._flightsRepository.GetAll(cancellationToken);
             return result.Select(this._mapper.Map<FlightViewModel>).ToList();
         }
         

@@ -15,7 +15,7 @@ namespace Acme.RemoteFlights.Domain.DTO
         public string DepartureCity { get; set; }
         public string ArrivalCity { get; set; }
 
-        public DateTime startTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public TimeSpan startTime { get; set; }
+        public TimeSpan EndTime { get; set; }
     }
 }

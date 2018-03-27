@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Acme.RemoteFlights.Domain.Contracts;
 using Acme.RemoteFlights.Domain.DTO;
@@ -21,10 +22,13 @@ namespace Acme.RemoteFlights.Domain.Repositories
             this._mapper = mapper;
         }
 
-        public async Task<List<FlightDTO>> GetAll()
+        public async Task<List<FlightDTO>> GetAll(CancellationToken cancellationToken)
         {
-            var result = await this._dbContext.Flights.ToListAsync();
-            return result.Select(this._mapper.Map<FlightDTO>).ToList();
+            return await SqlRetryPolicy.BasicPolicy.ExecuteAsync(async () =>
+            {
+                var result = await this._dbContext.Flights.ToListAsync(cancellationToken);
+                return result.Select(this._mapper.Map<FlightDTO>).ToList();
+            });
         }
 
     }
