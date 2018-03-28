@@ -18,11 +18,33 @@ by selecting flights and providing passenger details
 3. Front end SPA built using ReactJS with Web pack.
 
 # Run locally 
-Clone the solution 
-1. With InMemoryDatabase just Press F5
+
+First clone the solution. 
+
+1. With current settings having InMemoryDatabase just Press F5
+
 2. With Local Db 
-		Create Local DB with name FlightsDb
-		Run the Scripts present in Acme.RemoteFlights.Domain Project Script Folder
- 		Press F5
-# Azure Site
+
+        a. Create Local DB with name "FlightsDb"
+	
+        b. Run the Db Scripts file (Sql.sql) present in the project Acme.RemoteFlights.Domain => DBScripts folder
+	
+        c. In Project Acme.RemoteFlights.Api => Startup.cs file 
+	
+            Un-comment line
+            //services.AddDbContext<FlightsDbContext>(options =>
+            //options.UseSqlServer(Configuration.GetConnectionString("FlightsContext")));
+	    
+        d. In Project Acme.RemoteFlights.Api => Startup.cs file 
+	
+            Comment the line
+            services.AddDbContext<FlightsDbContext>(options => options.UseInMemoryDatabase("FlightsDb"));
+        
+		e. Press F5
+        
+# Live demo
 https://acmeremoteflightsapi20180327103924.azurewebsites.net/
+
+# Live Swagger end point
+http://acmeremoteflightsapi20180327103924.azurewebsites.net/swagger/
+
