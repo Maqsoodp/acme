@@ -42,9 +42,4 @@ First clone the solution.
         
 		e. Press F5
         
-# Live demo
-https://acmeremoteflightsapi20180327103924.azurewebsites.net/
-
-# Live Swagger end point
-http://acmeremoteflightsapi20180327103924.azurewebsites.net/swagger/
 
